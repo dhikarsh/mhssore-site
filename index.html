@@ -34,7 +34,7 @@ header{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom
 .btn.sm{padding:6px 12px;font-size:13px;border-radius:9px}
 .hero{position:relative;border-radius:22px;margin:22px 0 28px;min-height:270px;background:#e9eaee center/cover;overflow:hidden;border:1px solid var(--line)}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff 0,rgba(255,255,255,.93) 36%,rgba(255,255,255,0) 80%)}
-.hero:not([style])::after{content:"MHS";position:absolute;right:10px;bottom:-70px;font:800 300px Sora,sans-serif;color:rgba(0,0,0,.05);letter-spacing:-.06em}
+.hero.nob::after{content:"MHS";position:absolute;right:10px;bottom:-70px;font:800 300px Sora,sans-serif;color:rgba(0,0,0,.05);letter-spacing:-.06em}
 .hero-in{position:relative;padding:30px 36px;max-width:640px}
 .crumb{font-size:13px;color:var(--mute)}
 .hero h1{font:800 clamp(30px,5vw,46px)/1.08 Sora,sans-serif;letter-spacing:-.035em;margin:10px 0}
@@ -96,6 +96,15 @@ table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
 .scroll{overflow-x:auto}.td{width:48px;height:32px;object-fit:cover;border-radius:6px;border:1px solid var(--line);display:block}
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 20px;border-radius:12px;display:none;z-index:99}
+.slides{position:absolute;inset:0}
+.sl{position:absolute;inset:0;background:center/cover;opacity:0;transition:opacity .8s}.sl.on{opacity:1}
+.hero::before{z-index:1}.hero-in{z-index:2}
+.ar{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:22px;line-height:1}
+.ar:hover{background:var(--ink);color:#fff}.ar.l{left:12px}.ar.r{right:12px}
+.dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:7px}
+.dots button{width:8px;height:8px;border-radius:99px;border:0;padding:0;background:#fff;opacity:.8;box-shadow:0 0 0 1px rgba(0,0,0,.25);transition:width .25s}
+.dots button.on{width:26px;background:var(--ink);opacity:1}
+@media(prefers-reduced-motion:reduce){.sl,.dots button{transition:none}}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.side{position:static}.rg{display:none}.links{display:none}}
 @media(max-width:600px){.hero-in{padding:24px 20px}.search kbd{display:none}.nav{gap:12px}.logo span{display:none}}
 </style>
@@ -169,16 +178,26 @@ async function up(file,dir,opt){
   return sb.storage.from('qris').getPublicUrl(path).data.publicUrl;
 }
 
+/* ---------- Slider banner ---------- */
+const bnrs=()=>Array.isArray(S.set.banners)&&S.set.banners.length?S.set.banners:(S.set.banner_url?[S.set.banner_url]:[]);
+let si=0,st,tx=0;
+function go(n){const s=document.querySelectorAll('.sl');if(!s.length)return;si=(n+s.length)%s.length;
+  s.forEach((e,i)=>e.classList.toggle('on',i===si));document.querySelectorAll('.dots button').forEach((e,i)=>e.classList.toggle('on',i===si))}
+function tick(){clearInterval(st);if(document.querySelectorAll('.sl').length>1)st=setInterval(()=>go(si+1),5000)}
+function auto(){si=0;tick()}
+$('#app').addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+$('#app').addEventListener('touchend',e=>{if(!e.target.closest('.hero'))return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50){go(si+(d<0?1:-1));tick()}},{passive:true});
+
 /* ---------- Toko ---------- */
 function shop(){
   $('#sb').style.display='';
-  const av=S.products.filter(p=>!p.sold).length, cnt=k=>S.products.filter(p=>p.platform===k).length, bn=S.set.banner_url;
+  const av=S.products.filter(p=>!p.sold).length, cnt=k=>S.products.filter(p=>p.platform===k).length, bn=bnrs();
   $('#app').innerHTML=`
-  <section class="hero" ${bn?`style="background-image:url('${esc(bn)}')"`:''}><div class="hero-in">
+  <section class="hero ${bn.length?'':'nob'}"><div class="slides">${bn.map((u,i)=>`<div class="sl ${i?'':'on'}" style="background-image:url('${esc(u)}')"></div>`).join('')}</div><div class="hero-in">
     <div class="crumb">Beranda › Akun Sosmed</div><h1>Akun Sosmed Siap Pakai</h1>
     <p>Pilih akun, scan QRIS, kirim bukti bayar. Data akun dikirim lewat WhatsApp.</p>
     <div class="stats"><div><small>Total penawaran</small><b>${num(av)}</b></div><div><small>Terjual</small><b>${num(S.products.length-av)}</b></div></div>
-  </div></section>
+  </div>${bn.length>1?`<button class="ar l" data-a="-1" aria-label="Banner sebelumnya">‹</button><button class="ar r" data-a="1" aria-label="Banner berikutnya">›</button><div class="dots">${bn.map((_,i)=>`<button data-d="${i}" class="${i?'':'on'}" aria-label="Banner ${i+1}"></button>`).join('')}</div>`:''}</section>
   <h2 class="h2">Merek populer</h2>
   <div class="brands">${Object.entries(P).map(([k,v])=>`<button class="brand ${S.f===k?'on':''}" data-f="${k}"><i>${v[0]}</i><b>${k}</b><span>${cnt(k)} penawaran</span></button>`).join('')}</div>
   <div class="layout">
@@ -193,7 +212,7 @@ function shop(){
   <div class="how"><div><i class="em">🔍</i><p style="margin:0"><b>Pilih akun</b><span>Cari berdasarkan merek, followers, atau harga.</span></p></div>
   <div><i class="em">📲</i><p style="margin:0"><b>Bayar via QRIS</b><span>Scan dari e-wallet atau mobile banking apa saja.</span></p></div>
   <div><i class="em">💬</i><p style="margin:0"><b>Konfirmasi WhatsApp</b><span>Kirim bukti bayar, admin mengirim data akun.</span></p></div></div>`;
-  draw();
+  draw();auto();
 }
 const card=p=>{const [c,e]=P[p.platform]||P.Lainnya;return `<article class="card" data-id="${p.id}" tabindex="0">
   <div class="img ${p.sold?'sold':''}">${p.image_url?`<img src="${esc(p.image_url)}" alt="${esc(p.title)}" loading="lazy">`:`<span class="ph">${c}</span>`}${p.sold?'<u>Terjual</u>':''}</div>
@@ -222,6 +241,7 @@ function openP(id){
   $('#modal').classList.add('open');
 }
 $('#app').addEventListener('click',e=>{
+  const a=e.target.closest('[data-a],[data-d]');if(a){go(a.dataset.a?si+ +a.dataset.a:+a.dataset.d);return tick()}
   const b=e.target.closest('[data-f]');if(b){S.f=b.dataset.f;return shop()}
   const c=e.target.closest('.card');if(c)openP(c.dataset.id);
 });
@@ -235,7 +255,7 @@ $('#q').addEventListener('input',e=>{S.q=e.target.value;if($('#grid'))draw()});
 
 /* ---------- Admin ---------- */
 function admin(){
-  $('#sb').style.display='none';
+  $('#sb').style.display='none';clearInterval(st);
   if(!S.session){
     $('#app').innerHTML=`<div class="panel" style="max-width:380px;margin:60px auto"><h2>Masuk admin</h2>
     <form id="lf"><label for="em">Email</label><input id="em" type="email" required autocomplete="username">
@@ -250,7 +270,8 @@ function admin(){
   $('#app').innerHTML=`
   <div class="row" style="margin-top:22px"><h1 style="margin:0;font:800 26px Sora,sans-serif">Dashboard admin</h1><button class="btn ghost sm" id="out">Keluar</button></div>
   <div class="panel"><h2>Tampilan toko</h2><div class="f">
-    <div><label for="bf">Gambar banner (disarankan 1800×500)</label><input id="bf" type="file" accept="image/*">${S.set.banner_url?`<img class="thumb" src="${esc(S.set.banner_url)}" alt="Banner saat ini">`:''}</div>
+    <div style="grid-column:1/-1"><label for="bf">Banner slide (boleh pilih banyak, disarankan 1800×500)</label><input id="bf" type="file" accept="image/*" multiple>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">${bnrs().map((u,i)=>`<div><img class="thumb" style="width:180px;height:50px;margin:0 0 6px" src="${esc(u)}" alt="Banner ${i+1}"><button type="button" class="btn red sm" data-bd="${i}">Hapus</button></div>`).join('')}</div></div>
     <div><label for="qf">Gambar QRIS</label><input id="qf" type="file" accept="image/*">${S.set.qris_url?`<img class="thumb" style="object-fit:contain;width:90px;height:90px" src="${esc(S.set.qris_url)}" alt="QRIS saat ini">`:''}</div>
     <div><label for="wa">Nomor WhatsApp (628xxx)</label><input id="wa" value="${esc(S.set.wa)}" placeholder="6281234567890"></div></div>
     <div style="margin-top:14px"><button class="btn" id="saveSet">Simpan pengaturan</button></div></div>
@@ -269,12 +290,15 @@ function admin(){
   <td style="white-space:nowrap"><button class="btn ghost sm" data-e="${p.id}">Edit</button> <button class="btn ghost sm" data-s="${p.id}">${p.sold?'Tandai tersedia':'Tandai terjual'}</button> <button class="btn red sm" data-d="${p.id}">Hapus</button></td></tr>`).join('')||'<tr><td colspan="6" class="muted">Belum ada produk.</td></tr>'}
   </tbody></table></div></div>`;
   $('#out').onclick=async()=>{await sb.auth.signOut();S.session=null;admin()};
+  document.querySelectorAll('[data-bd]').forEach(b=>b.onclick=async()=>{if(!confirm('Hapus banner ini?'))return;
+    const l=bnrs().filter((_,i)=>i!==+b.dataset.bd);const {error}=await sb.from('settings').update({banners:l,banner_url:null}).eq('id',1);
+    if(error)return toast(error.message);toast('Banner dihapus');await load();admin()});
   $('#saveSet').onclick=async()=>{try{
     toast('Menyimpan…');
-    const row={id:1,wa:$('#wa').value.trim(),qris_url:S.set.qris_url,banner_url:S.set.banner_url};
-    const q=$('#qf').files[0],b=$('#bf').files[0];
+    const row={id:1,wa:$('#wa').value.trim(),qris_url:S.set.qris_url,banner_url:null,banners:bnrs()};
+    const q=$('#qf').files[0],bs=[...$('#bf').files];
     if(q)row.qris_url=await up(q,'qris');
-    if(b)row.banner_url=await up(b,'banner',{max:1800});
+    for(const b of bs)row.banners=[...row.banners,await up(b,'banner',{max:1800})];
     const {error}=await sb.from('settings').upsert(row);if(error)throw error;
     toast('Pengaturan disimpan');await load();admin();
   }catch(x){toast('Gagal: '+x.message)}};
