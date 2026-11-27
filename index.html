@@ -5,255 +5,295 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MHS Store – Jual Beli Akun Sosmed</title>
 <meta name="description" content="Beli akun Facebook, YouTube, TikTok, Instagram dan lainnya. Bayar dengan QRIS.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛍️%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23111216'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Arial' font-weight='800' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&family=Sora:wght@600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--ink:#1b1f3b;--mute:#6b7190;--line:#e6e8f2;--brand:#5b3df5;--brand2:#ede9ff;--ok:#16a34a;--bad:#e11d48;--r:14px}
+:root{--bg:#f4f4f6;--card:#fff;--ink:#111216;--mute:#6d7080;--line:#e4e5ea;--acc:#e5242b;--r:16px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid #b9a9ff;outline-offset:2px}
-.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
-header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
-.nav{display:flex;align-items:center;gap:16px;height:64px}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--brand)}
-.logo span{color:var(--ink)}
-.search{flex:1;max-width:520px;position:relative}
-.search input{width:100%;height:42px;border:1px solid var(--line);border-radius:999px;padding:0 16px;background:var(--bg)}
-.nav .sp{flex:1}
-.btn{border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;background:var(--brand);color:#fff;display:inline-block}
-.btn:hover{filter:brightness(1.08)}
-.btn.ghost{background:var(--brand2);color:var(--brand)}
-.btn.red{background:#ffe4ea;color:var(--bad)}
-.btn.sm{padding:6px 11px;font-size:13px}
-.hero{background:linear-gradient(120deg,#5b3df5,#8b6bff);color:#fff;border-radius:20px;margin:22px 0;padding:34px 30px}
-.hero h1{margin:0 0 6px;font-size:clamp(24px,4vw,36px);letter-spacing:-.02em;max-width:620px}
-.hero p{margin:0;opacity:.92;max-width:560px}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;white-space:nowrap}
-.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;padding-bottom:50px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
-.card:hover{border-color:#c9bfff;box-shadow:0 6px 20px rgba(91,61,245,.08)}
-.badge{align-self:flex-start;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;color:#fff}
-.card h3{margin:0;font-size:16px;line-height:1.35}
-.card .meta{color:var(--mute);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
-.card .desc{color:var(--mute);font-size:13px;margin:0;flex:1}
-.price{font-size:20px;font-weight:800}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.sold{opacity:.55}
-.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:50px 0}
-.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:46px}
-.how div{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px}
-.how b{display:block;margin-bottom:4px}
-.how span{color:var(--mute);font-size:14px}
-footer{background:#fff;border-top:1px solid var(--line);padding:22px 0;color:var(--mute);font-size:14px}
-.modal{position:fixed;inset:0;background:rgba(20,18,50,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.em{filter:grayscale(1) contrast(1.2)}
+header{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;gap:22px;height:68px}
+.logo{display:flex;align-items:center;gap:9px;font:800 19px Sora,sans-serif;letter-spacing:-.03em}
+.logo i{width:32px;height:32px;border-radius:9px;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-size:17px;position:relative}
+.logo i::after{content:"";position:absolute;right:-3px;top:-3px;width:9px;height:9px;border-radius:50%;background:var(--acc);border:2px solid #fff}
+.links{display:flex;gap:18px;font-size:14px;font-weight:700;color:var(--mute)}.links a:hover{color:var(--ink)}
+.search{flex:1;max-width:460px;position:relative;margin-left:auto}
+.search input{width:100%;height:42px;border:1px solid var(--line);border-radius:12px;padding:0 40px 0 38px;background:var(--bg)}
+.search::before{content:"⌕";position:absolute;left:14px;top:7px;font-size:20px;color:var(--mute)}
+.search kbd{position:absolute;right:10px;top:9px;border:1px solid var(--line);border-radius:6px;padding:0 7px;font-size:12px;color:var(--mute);background:#fff}
+.btn{border:0;border-radius:11px;padding:10px 18px;font-weight:700;background:var(--ink);color:#fff;display:inline-block}
+.btn:hover{background:#2b2d36}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+.btn.red{background:#fff;color:var(--acc);border:1px solid #f3c4c6}
+.btn.sm{padding:6px 12px;font-size:13px;border-radius:9px}
+.hero{position:relative;border-radius:22px;margin:22px 0 28px;min-height:270px;background:#e9eaee center/cover;overflow:hidden;border:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff 0,rgba(255,255,255,.93) 36%,rgba(255,255,255,0) 80%)}
+.hero:not([style])::after{content:"MHS";position:absolute;right:10px;bottom:-70px;font:800 300px Sora,sans-serif;color:rgba(0,0,0,.05);letter-spacing:-.06em}
+.hero-in{position:relative;padding:30px 36px;max-width:640px}
+.crumb{font-size:13px;color:var(--mute)}
+.hero h1{font:800 clamp(30px,5vw,46px)/1.08 Sora,sans-serif;letter-spacing:-.035em;margin:10px 0}
+.hero p{margin:0 0 20px;color:var(--mute);max-width:480px}
+.stats{display:flex;gap:12px}
+.stats div{border:1px solid var(--ink);border-radius:12px;padding:8px 18px;background:rgba(255,255,255,.8);min-width:130px}
+.stats small{display:block;font-size:12px;color:var(--mute)}.stats b{font:800 24px Sora,sans-serif}
+.h2{font:800 18px Sora,sans-serif;margin:0 0 12px;letter-spacing:-.02em}
+.brands{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 14px;margin-bottom:10px}
+.brand{flex:0 0 160px;height:96px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(135deg,#fff,#e9eaee);text-align:left;padding:14px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.brand i{position:absolute;right:8px;top:-6px;font:800 60px Sora,sans-serif;font-style:normal;color:rgba(0,0,0,.09);letter-spacing:-.05em}
+.brand b{font-size:15px;position:relative}.brand span{font-size:12px;color:var(--mute);position:relative}
+.brand:hover{border-color:#9a9cab}.brand.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.layout{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:start}
+.side{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;position:sticky;top:86px}
+.side h3{margin:0 0 12px;font:800 17px Sora,sans-serif}
+.lbl{display:block;font-size:13px;margin:14px 0 8px}
+.rad{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:14px;cursor:pointer}
+.rad input{width:auto;accent-color:var(--ink)}.rad span{flex:1}.rad em{font-style:normal;font-size:12px;background:var(--bg);border-radius:6px;padding:0 7px;color:var(--mute)}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:16px;padding-bottom:40px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
+.card:hover{border-color:var(--ink)}
+.img{aspect-ratio:16/10;background:linear-gradient(135deg,#f3f3f6,#dfe0e6);position:relative;display:grid;place-items:center;overflow:hidden}
+.img img{width:100%;height:100%;object-fit:cover;display:block}
+.img .ph{font:800 64px Sora,sans-serif;color:rgba(0,0,0,.12);letter-spacing:-.05em}
+.img.sold img{filter:grayscale(1);opacity:.55}
+.img u{position:absolute;left:10px;top:10px;background:var(--ink);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:3px 11px;border-radius:999px}
+.cb{padding:14px 15px 15px;display:flex;flex-direction:column;gap:10px;flex:1}
+.cb h3{margin:0;font-size:15px;line-height:1.35}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:12px;border:1px solid var(--line);border-radius:7px;padding:2px 8px;color:var(--mute);background:var(--bg)}
+.cf{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:11px;margin-top:auto}
+.cf small{display:block;font-size:11px;color:var(--mute)}.cf b{font:800 17px Sora,sans-serif}
+.go{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center}
+.card:hover .go{background:var(--ink);color:#fff;border-color:var(--ink)}
+.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:60px 0;border:1px dashed var(--line);border-radius:var(--r);background:#fff}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:6px 0 50px}
+.how div{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;gap:14px}
+.how i{width:42px;height:42px;flex:none;border-radius:12px;background:var(--bg);display:grid;place-items:center;font-style:normal;font-size:20px}
+.how b{display:block}.how span{color:var(--mute);font-size:14px}
+footer{background:#fff;border-top:1px solid var(--line);padding:24px 0;color:var(--mute);font-size:14px}
+.modal{position:fixed;inset:0;background:rgba(17,18,22,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
 .modal.open{display:flex}
-.box{background:#fff;border-radius:18px;max-width:420px;width:100%;max-height:92vh;overflow:auto;padding:22px}
-.box h2{margin:0 0 4px;font-size:19px}
-.box img.qr{width:100%;max-width:300px;display:block;margin:12px auto;border:1px solid var(--line);border-radius:12px}
+.box{background:#fff;border-radius:20px;max-width:460px;width:100%;max-height:92vh;overflow:auto;padding:20px}
+.box .img{border-radius:12px;margin-bottom:14px}
+.box h2{margin:0 0 8px;font:800 20px Sora,sans-serif}
+.box .qr{width:100%;max-width:280px;display:block;margin:14px auto;border:1px solid var(--line);border-radius:12px}
 .muted{color:var(--mute);font-size:14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;margin:18px 0}
-.panel h2{margin:0 0 12px;font-size:18px}
-.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-label{font-size:13px;font-weight:700;display:block;margin-bottom:4px}
-input,select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+.panel h2{margin:0 0 14px;font:800 18px Sora,sans-serif}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+label{font-size:13px;font-weight:700;display:block;margin-bottom:5px}
+input:not([type=radio]):not([type=checkbox]),select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
 textarea{min-height:80px;resize:vertical}
+.thumb{width:120px;height:75px;object-fit:cover;border:1px solid var(--line);border-radius:10px;display:block;margin-top:8px}
 table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-.scroll{overflow-x:auto}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;display:none;z-index:99}
-@media(max-width:640px){.hero{padding:24px 20px}.logo{font-size:17px}}
-@media(prefers-reduced-motion:no-preference){.card{transition:box-shadow .2s,border-color .2s}}
+.scroll{overflow-x:auto}.td{width:48px;height:32px;object-fit:cover;border-radius:6px;border:1px solid var(--line);display:block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 20px;border-radius:12px;display:none;z-index:99}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.side{position:static}.rg{display:none}.links{display:none}}
+@media(max-width:600px){.hero-in{padding:24px 20px}.search kbd{display:none}.nav{gap:12px}.logo span{display:none}}
 </style>
 </head>
 <body>
 <header><div class="wrap nav">
-  <a href="#" class="logo">MHS<span>Store</span></a>
-  <div class="search" id="searchBox"><input id="q" type="search" placeholder="Cari akun, mis. TikTok 10K followers" aria-label="Cari akun"></div>
-  <div class="sp"></div>
-  <a href="#admin" class="btn ghost sm" id="adminLink">Admin</a>
+  <a href="#" class="logo"><i>M</i><span>MHS Store</span></a>
+  <nav class="links"><a href="#">Beranda</a><a href="#how">Cara beli</a></nav>
+  <div class="search" id="sb"><input id="q" type="search" placeholder="Cari akun, mis. TikTok 10K followers" aria-label="Cari akun"><kbd>/</kbd></div>
+  <a href="#admin" class="btn ghost sm">Admin</a>
 </div></header>
-
 <main class="wrap" id="app"></main>
-
-<footer><div class="wrap">© <span id="yr"></span> mhsstore.online. Pembayaran via QRIS, konfirmasi lewat WhatsApp.</div></footer>
-
-<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modalBox"></div></div>
+<footer><div class="wrap">© <span id="yr"></span> mhsstore.online · Pembayaran via QRIS, konfirmasi lewat WhatsApp.</div></footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="mb"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ====== ISI DUA BARIS INI (dari Supabase → Project Settings → API) ====== */
-const SUPABASE_URL = 'https://sxgzpwvnifudlokwtuvo.supabase.co/';
+/* ====== ISI KEY SUPABASE (Publishable key dari Settings → API Keys) ====== */
+const SUPABASE_URL = 'https://sxgzpwvnifudlokwtuvo.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_OOljaJZvgXYQCI10RFXkWw_ZvfnuI8x';
-/* ======================================================================== */
-
+/* ======================================================================= */
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-const PLATFORMS = {Facebook:'#1877f2',YouTube:'#e11d2e',TikTok:'#111827',Instagram:'#d6249f','X / Twitter':'#0f1419',Telegram:'#229ed9',Lainnya:'#7c3aed'};
+const P = {Facebook:['FB','👥'],YouTube:['YT','▶️'],TikTok:['TT','🎵'],Instagram:['IG','📷'],'X / Twitter':['X','✖️'],Telegram:['TG','✈️'],Lainnya:['··','✨']};
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const rp = n => 'Rp ' + new Intl.NumberFormat('id-ID').format(n || 0);
-const state = {products:[], settings:{}, filter:'Semua', q:'', session:null, editId:null};
+const num = n => new Intl.NumberFormat('id-ID').format(n || 0);
+const rp = n => 'Rp ' + num(n);
+const SORTS = {new:(a,b)=>new Date(b.created_at)-new Date(a.created_at),low:(a,b)=>a.price-b.price,high:(a,b)=>b.price-a.price,fol:(a,b)=>b.followers-a.followers};
+const S = {products:[],set:{},f:'Semua',q:'',sort:'new',only:false,session:null,edit:null};
 
-function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2800)}
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',3000)}
 function closeModal(){$('#modal').classList.remove('open')}
 $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-$('#yr').textContent = new Date().getFullYear();
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();$('#q').focus()}});
+$('#yr').textContent=new Date().getFullYear();
 
 async function load(){
-  const [p,s] = await Promise.all([
-    sb.from('products').select('*').order('created_at',{ascending:false}),
-    sb.from('settings').select('*').eq('id',1).maybeSingle()
-  ]);
-  state.products = p.data || [];
-  state.settings = s.data || {};
-  const {data} = await sb.auth.getSession();
-  state.session = data.session;
+  const [p,s] = await Promise.all([sb.from('products').select('*').order('created_at',{ascending:false}), sb.from('settings').select('*').eq('id',1).maybeSingle()]);
+  S.products=p.data||[]; S.set=s.data||{};
+  S.session=(await sb.auth.getSession()).data.session;
 }
 
-/* ---------- Halaman toko ---------- */
-function renderShop(){
-  $('#searchBox').style.display='';
-  const chips = ['Semua',...Object.keys(PLATFORMS)].map(c=>`<button class="chip ${state.filter===c?'on':''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
-  $('#app').innerHTML = `
-    <section class="hero"><h1>Akun sosmed siap pakai, bayar mudah pakai QRIS</h1>
-    <p>Pilih akun Facebook, YouTube, TikTok, Instagram dan lainnya. Scan QRIS, kirim bukti bayar, data akun dikirim lewat WhatsApp.</p></section>
-    <div class="chips" id="chips">${chips}</div>
-    <div class="grid" id="grid"></div>
-    <section class="how">
-      <div><b>1. Pilih akun</b><span>Cari berdasarkan platform, followers, atau harga.</span></div>
-      <div><b>2. Bayar via QRIS</b><span>Scan QRIS dari e-wallet atau mobile banking apa saja.</span></div>
-      <div><b>3. Konfirmasi WhatsApp</b><span>Kirim bukti bayar, admin mengirim data akun.</span></div>
-    </section>`;
-  $('#chips').onclick = e => {const c=e.target.closest('.chip'); if(c){state.filter=c.dataset.c; renderShop(); drawGrid()}};
-  drawGrid();
+/* Perkecil gambar; untuk produk tambahkan watermark otomatis */
+function prep(file,{max=1200,mark=0}){return new Promise((ok,no)=>{
+  const im=new Image();
+  im.onload=()=>{
+    const s=Math.min(1,max/Math.max(im.width,im.height)),w=im.width*s|0,h=im.height*s|0,c=document.createElement('canvas');
+    c.width=w;c.height=h;const x=c.getContext('2d');x.drawImage(im,0,0,w,h);
+    if(mark){
+      const fs=Math.max(13,w/30),t='MHSSTORE.ONLINE',st=fs*t.length*.75,R=Math.max(w,h);
+      x.font=`800 ${fs}px Sora,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.lineWidth=fs/12;
+      x.save();x.translate(w/2,h/2);x.rotate(-Math.PI/7);
+      for(let j=-R,r=0;j<R;j+=fs*3.4,r++)for(let i=-R+(r%2?st/2:0);i<R;i+=st){
+        x.strokeStyle='rgba(0,0,0,.22)';x.strokeText(t,i,j);x.fillStyle='rgba(255,255,255,.42)';x.fillText(t,i,j);
+      }
+      x.restore();
+      x.font=`800 ${fs*.9}px Sora,sans-serif`;x.textAlign='right';
+      const tw=x.measureText(t).width;x.fillStyle='rgba(0,0,0,.68)';x.fillRect(w-tw-fs*1.6,h-fs*2.3,tw+fs*1.6,fs*2.3);
+      x.fillStyle='#fff';x.fillText(t,w-fs*.8,h-fs*1.15);
+    }
+    c.toBlob(b=>b?ok(b):no(new Error('Gambar tidak valid')),'image/jpeg',.86);
+  };
+  im.onerror=()=>no(new Error('File bukan gambar yang valid'));
+  im.src=URL.createObjectURL(file);
+})}
+async function up(file,dir,opt){
+  const body=opt?await prep(file,opt):file;
+  const path=`${dir}/${Date.now()}.${opt?'jpg':(file.name.split('.').pop()||'png').toLowerCase()}`;
+  const r=await sb.storage.from('qris').upload(path,body,{contentType:opt?'image/jpeg':file.type});
+  if(r.error)throw r.error;
+  return sb.storage.from('qris').getPublicUrl(path).data.publicUrl;
 }
-function drawGrid(){
-  const q = state.q.toLowerCase();
-  const list = state.products.filter(p => (state.filter==='Semua'||p.platform===state.filter) &&
-    (!q || (p.title+' '+p.platform+' '+(p.description||'')).toLowerCase().includes(q)));
-  $('#grid').innerHTML = list.length ? list.map(p=>`
-    <article class="card ${p.sold?'sold':''}">
-      <span class="badge" style="background:${PLATFORMS[p.platform]||'#7c3aed'}">${esc(p.platform)}</span>
-      <h3>${esc(p.title)}</h3>
-      <div class="meta">${p.followers?`<span>👥 ${new Intl.NumberFormat('id-ID').format(p.followers)} followers</span>`:''}${p.age?`<span>🗓️ ${esc(p.age)}</span>`:''}</div>
-      <p class="desc">${esc(p.description)}</p>
-      <div class="row"><span class="price">${rp(p.price)}</span>
-      ${p.sold?'<span class="muted"><b>Terjual</b></span>':`<button class="btn sm" data-buy="${p.id}">Beli</button>`}</div>
-    </article>`).join('') : '<div class="empty">Belum ada akun yang cocok. Coba kata kunci atau platform lain.</div>';
-  document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>openBuy(b.dataset.buy));
-}
-$('#q').addEventListener('input',e=>{state.q=e.target.value; if($('#grid'))drawGrid()});
 
-function openBuy(id){
-  const p = state.products.find(x=>String(x.id)===String(id)); if(!p) return;
-  const wa = (state.settings.wa||'').replace(/\D/g,'');
-  const msg = encodeURIComponent(`Halo MHS Store, saya sudah bayar untuk akun: ${p.title} (${rp(p.price)}). Berikut bukti pembayaran.`);
-  $('#modalBox').innerHTML = `
-    <h2>${esc(p.title)}</h2>
-    <div class="price">${rp(p.price)}</div>
-    ${state.settings.qris_url ? `<img class="qr" src="${esc(state.settings.qris_url)}" alt="QRIS pembayaran">` : '<p class="muted">QRIS belum tersedia. Hubungi admin lewat WhatsApp.</p>'}
-    <p class="muted">Scan QRIS, bayar sesuai nominal, lalu kirim bukti pembayaran ke admin.</p>
-    <div class="row" style="margin-top:12px">
-      <button class="btn ghost" onclick="closeModal()">Tutup</button>
-      ${wa?`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${msg}">Kirim bukti bayar</a>`:''}
-    </div>`;
+/* ---------- Toko ---------- */
+function shop(){
+  $('#sb').style.display='';
+  const av=S.products.filter(p=>!p.sold).length, cnt=k=>S.products.filter(p=>p.platform===k).length, bn=S.set.banner_url;
+  $('#app').innerHTML=`
+  <section class="hero" ${bn?`style="background-image:url('${esc(bn)}')"`:''}><div class="hero-in">
+    <div class="crumb">Beranda › Akun Sosmed</div><h1>Akun Sosmed Siap Pakai</h1>
+    <p>Pilih akun, scan QRIS, kirim bukti bayar. Data akun dikirim lewat WhatsApp.</p>
+    <div class="stats"><div><small>Total penawaran</small><b>${num(av)}</b></div><div><small>Terjual</small><b>${num(S.products.length-av)}</b></div></div>
+  </div></section>
+  <h2 class="h2">Merek populer</h2>
+  <div class="brands">${Object.entries(P).map(([k,v])=>`<button class="brand ${S.f===k?'on':''}" data-f="${k}"><i>${v[0]}</i><b>${k}</b><span>${cnt(k)} penawaran</span></button>`).join('')}</div>
+  <div class="layout">
+    <aside class="side"><h3>Filter</h3>
+      <div class="rg"><b class="lbl">Merek</b>${['Semua',...Object.keys(P)].map(k=>`<label class="rad"><input type="radio" name="f" value="${k}" ${S.f===k?'checked':''}><span>${k}</span><em>${k==='Semua'?S.products.length:cnt(k)}</em></label>`).join('')}</div>
+      <b class="lbl">Urutkan</b><select id="so">${[['new','Terbaru'],['low','Harga terendah'],['high','Harga tertinggi'],['fol','Followers terbanyak']].map(([v,t])=>`<option value="${v}" ${S.sort===v?'selected':''}>${t}</option>`).join('')}</select>
+      <label class="rad" style="margin-top:12px"><input type="checkbox" id="on" ${S.only?'checked':''}><span>Hanya yang tersedia</span></label>
+    </aside>
+    <section><div class="top"><span id="cnt"></span></div><div class="grid" id="grid"></div></section>
+  </div>
+  <h2 class="h2" id="how">Cara beli</h2>
+  <div class="how"><div><i class="em">🔍</i><p style="margin:0"><b>Pilih akun</b><span>Cari berdasarkan merek, followers, atau harga.</span></p></div>
+  <div><i class="em">📲</i><p style="margin:0"><b>Bayar via QRIS</b><span>Scan dari e-wallet atau mobile banking apa saja.</span></p></div>
+  <div><i class="em">💬</i><p style="margin:0"><b>Konfirmasi WhatsApp</b><span>Kirim bukti bayar, admin mengirim data akun.</span></p></div></div>`;
+  draw();
+}
+const card=p=>{const [c,e]=P[p.platform]||P.Lainnya;return `<article class="card" data-id="${p.id}" tabindex="0">
+  <div class="img ${p.sold?'sold':''}">${p.image_url?`<img src="${esc(p.image_url)}" alt="${esc(p.title)}" loading="lazy">`:`<span class="ph">${c}</span>`}${p.sold?'<u>Terjual</u>':''}</div>
+  <div class="cb"><h3>${esc(p.title)}</h3>
+  <div class="tags"><span><span class="em">${e}</span> ${esc(p.platform)}</span>${p.followers?`<span>${num(p.followers)} followers</span>`:''}${p.age?`<span>${esc(p.age)}</span>`:''}</div>
+  <div class="cf"><div><small>Harga</small><b>${rp(p.price)}</b></div><span class="go">➜</span></div></div></article>`};
+function draw(){
+  const q=S.q.toLowerCase();
+  const l=S.products.filter(p=>(S.f==='Semua'||p.platform===S.f)&&(!S.only||!p.sold)&&(!q||(p.title+' '+p.platform+' '+(p.description||'')).toLowerCase().includes(q))).sort(SORTS[S.sort]);
+  $('#cnt').textContent=`${l.length} akun ditemukan`;
+  $('#grid').innerHTML=l.length?l.map(card).join(''):'<div class="empty">Belum ada akun yang cocok. Coba merek atau kata kunci lain.</div>';
+}
+function openP(id){
+  const p=S.products.find(x=>String(x.id)===String(id));if(!p)return;
+  const wa=(S.set.wa||'').replace(/\D/g,''),msg=encodeURIComponent(`Halo MHS Store, saya sudah bayar untuk akun: ${p.title} (${rp(p.price)}). Berikut bukti pembayaran.`);
+  $('#mb').innerHTML=`${p.image_url?`<div class="img"><img src="${esc(p.image_url)}" alt="${esc(p.title)}"></div>`:''}
+  <h2>${esc(p.title)}</h2>
+  <div class="tags"><span>${esc(p.platform)}</span>${p.followers?`<span>${num(p.followers)} followers</span>`:''}${p.age?`<span>${esc(p.age)}</span>`:''}</div>
+  ${p.description?`<p class="muted" style="white-space:pre-line">${esc(p.description)}</p>`:''}
+  <div class="row" style="margin:12px 0"><span class="muted">Harga</span><b style="font:800 22px Sora,sans-serif">${rp(p.price)}</b></div>
+  ${p.sold?'<p class="muted"><b>Akun ini sudah terjual.</b></p>':`
+    ${S.set.qris_url?`<img class="qr" src="${esc(S.set.qris_url)}" alt="QRIS pembayaran">`:'<p class="muted">QRIS belum tersedia. Hubungi admin lewat WhatsApp.</p>'}
+    <p class="muted">Scan QRIS, bayar sesuai nominal, lalu kirim bukti pembayaran ke admin.</p>`}
+  <div class="row" style="margin-top:12px"><button class="btn ghost" onclick="closeModal()">Tutup</button>
+  ${!p.sold&&wa?`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${msg}">Kirim bukti bayar</a>`:''}</div>`;
   $('#modal').classList.add('open');
 }
+$('#app').addEventListener('click',e=>{
+  const b=e.target.closest('[data-f]');if(b){S.f=b.dataset.f;return shop()}
+  const c=e.target.closest('.card');if(c)openP(c.dataset.id);
+});
+$('#app').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.classList.contains('card'))openP(e.target.dataset.id)});
+$('#app').addEventListener('change',e=>{
+  if(e.target.name==='f'){S.f=e.target.value;shop()}
+  if(e.target.id==='so'){S.sort=e.target.value;draw()}
+  if(e.target.id==='on'){S.only=e.target.checked;draw()}
+});
+$('#q').addEventListener('input',e=>{S.q=e.target.value;if($('#grid'))draw()});
 
-/* ---------- Halaman admin ---------- */
-function renderAdmin(){
-  $('#searchBox').style.display='none';
-  if(!state.session){
-    $('#app').innerHTML = `<div class="panel" style="max-width:380px;margin:50px auto">
-      <h2>Masuk admin</h2>
-      <form id="lf"><label for="em">Email</label><input id="em" type="email" required autocomplete="username">
-      <label for="pw" style="margin-top:10px">Kata sandi</label><input id="pw" type="password" required autocomplete="current-password">
-      <button class="btn" style="width:100%;margin-top:14px">Masuk</button></form></div>`;
-    $('#lf').onsubmit = async e => {
-      e.preventDefault();
-      const {data,error} = await sb.auth.signInWithPassword({email:$('#em').value,password:$('#pw').value});
-      if(error) return toast('Email atau kata sandi salah');
-      state.session = data.session; renderAdmin();
-    };
+/* ---------- Admin ---------- */
+function admin(){
+  $('#sb').style.display='none';
+  if(!S.session){
+    $('#app').innerHTML=`<div class="panel" style="max-width:380px;margin:60px auto"><h2>Masuk admin</h2>
+    <form id="lf"><label for="em">Email</label><input id="em" type="email" required autocomplete="username">
+    <label for="pw" style="margin-top:12px">Kata sandi</label><input id="pw" type="password" required autocomplete="current-password">
+    <button class="btn" style="width:100%;margin-top:16px">Masuk</button></form></div>`;
+    $('#lf').onsubmit=async e=>{e.preventDefault();
+      const {data,error}=await sb.auth.signInWithPassword({email:$('#em').value,password:$('#pw').value});
+      if(error)return toast('Email atau kata sandi salah');S.session=data.session;admin()};
     return;
   }
-  const ed = state.products.find(p=>p.id===state.editId) || {};
-  $('#app').innerHTML = `
-    <div class="row" style="margin-top:20px"><h1 style="margin:0;font-size:24px">Dashboard admin</h1><button class="btn ghost sm" id="out">Keluar</button></div>
-
-    <div class="panel"><h2>QRIS &amp; WhatsApp</h2>
-      <div class="f">
-        <div><label for="qf">Upload gambar QRIS (JPG/PNG)</label><input id="qf" type="file" accept="image/*"></div>
-        <div><label for="wa">Nomor WhatsApp (format 628xxx)</label><input id="wa" value="${esc(state.settings.wa)}" placeholder="6281234567890"></div>
-      </div>
-      ${state.settings.qris_url?`<p class="muted">QRIS saat ini:</p><img src="${esc(state.settings.qris_url)}" alt="QRIS saat ini" style="width:140px;border:1px solid var(--line);border-radius:10px">`:''}
-      <div style="margin-top:12px"><button class="btn" id="saveSet">Simpan pengaturan</button></div>
-    </div>
-
-    <div class="panel"><h2>${ed.id?'Edit produk':'Tambah produk'}</h2>
-      <form id="pf"><div class="f">
-        <div><label for="t">Judul</label><input id="t" required value="${esc(ed.title)}" placeholder="TikTok 10K followers aktif"></div>
-        <div><label for="pl">Platform</label><select id="pl">${Object.keys(PLATFORMS).map(k=>`<option ${ed.platform===k?'selected':''}>${k}</option>`).join('')}</select></div>
-        <div><label for="pr">Harga (Rp)</label><input id="pr" type="number" min="0" required value="${ed.price??''}"></div>
-        <div><label for="fo">Followers</label><input id="fo" type="number" min="0" value="${ed.followers??''}"></div>
-        <div><label for="ag">Usia akun</label><input id="ag" value="${esc(ed.age)}" placeholder="2 tahun"></div>
-      </div>
-      <label for="ds" style="margin-top:12px">Deskripsi</label><textarea id="ds">${esc(ed.description)}</textarea>
-      <div style="margin-top:12px;display:flex;gap:8px"><button class="btn">${ed.id?'Simpan perubahan':'Tambah produk'}</button>${ed.id?'<button type="button" class="btn ghost" id="cancel">Batal</button>':''}</div></form>
-    </div>
-
-    <div class="panel"><h2>Daftar produk (${state.products.length})</h2>
-      <div class="scroll"><table><thead><tr><th>Judul</th><th>Platform</th><th>Harga</th><th>Status</th><th></th></tr></thead><tbody>
-      ${state.products.map(p=>`<tr><td>${esc(p.title)}</td><td>${esc(p.platform)}</td><td>${rp(p.price)}</td>
-        <td>${p.sold?'Terjual':'Tersedia'}</td>
-        <td style="white-space:nowrap"><button class="btn ghost sm" data-e="${p.id}">Edit</button>
-        <button class="btn ghost sm" data-s="${p.id}">${p.sold?'Tandai tersedia':'Tandai terjual'}</button>
-        <button class="btn red sm" data-d="${p.id}">Hapus</button></td></tr>`).join('') || '<tr><td colspan="5" class="muted">Belum ada produk.</td></tr>'}
-      </tbody></table></div></div>`;
-
-  $('#out').onclick = async()=>{await sb.auth.signOut();state.session=null;renderAdmin()};
-  $('#saveSet').onclick = async()=>{
-    let qris_url = state.settings.qris_url;
-    const f = $('#qf').files[0];
-    if(f){
-      const ext = (f.name.split('.').pop()||'png').toLowerCase();
-      const path = `qris-${Date.now()}.${ext}`;
-      const up = await sb.storage.from('qris').upload(path,f,{upsert:true,contentType:f.type});
-      if(up.error) return toast('Upload gagal: '+up.error.message);
-      qris_url = sb.storage.from('qris').getPublicUrl(path).data.publicUrl;
-    }
-    const {error} = await sb.from('settings').upsert({id:1,qris_url,wa:$('#wa').value.trim()});
-    if(error) return toast('Gagal menyimpan: '+error.message);
-    toast('Pengaturan disimpan'); await load(); renderAdmin();
-  };
-  $('#pf').onsubmit = async e=>{
-    e.preventDefault();
-    const row = {title:$('#t').value.trim(),platform:$('#pl').value,price:+$('#pr').value,followers:+$('#fo').value||0,age:$('#ag').value.trim(),description:$('#ds').value.trim()};
-    const r = ed.id ? await sb.from('products').update(row).eq('id',ed.id) : await sb.from('products').insert(row);
-    if(r.error) return toast('Gagal: '+r.error.message);
-    state.editId=null; toast('Produk disimpan'); await load(); renderAdmin();
-  };
-  if($('#cancel')) $('#cancel').onclick=()=>{state.editId=null;renderAdmin()};
-  document.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{state.editId=+b.dataset.e;renderAdmin();scrollTo({top:0})});
-  document.querySelectorAll('[data-s]').forEach(b=>b.onclick=async()=>{
-    const p=state.products.find(x=>x.id===+b.dataset.s);
-    const {error}=await sb.from('products').update({sold:!p.sold}).eq('id',p.id);
-    if(error) return toast(error.message); await load(); renderAdmin();
-  });
-  document.querySelectorAll('[data-d]').forEach(b=>b.onclick=async()=>{
-    if(!confirm('Hapus produk ini?')) return;
-    const {error}=await sb.from('products').delete().eq('id',+b.dataset.d);
-    if(error) return toast(error.message); await load(); renderAdmin();
-  });
+  const ed=S.products.find(p=>p.id===S.edit)||{};
+  $('#app').innerHTML=`
+  <div class="row" style="margin-top:22px"><h1 style="margin:0;font:800 26px Sora,sans-serif">Dashboard admin</h1><button class="btn ghost sm" id="out">Keluar</button></div>
+  <div class="panel"><h2>Tampilan toko</h2><div class="f">
+    <div><label for="bf">Gambar banner (disarankan 1800×500)</label><input id="bf" type="file" accept="image/*">${S.set.banner_url?`<img class="thumb" src="${esc(S.set.banner_url)}" alt="Banner saat ini">`:''}</div>
+    <div><label for="qf">Gambar QRIS</label><input id="qf" type="file" accept="image/*">${S.set.qris_url?`<img class="thumb" style="object-fit:contain;width:90px;height:90px" src="${esc(S.set.qris_url)}" alt="QRIS saat ini">`:''}</div>
+    <div><label for="wa">Nomor WhatsApp (628xxx)</label><input id="wa" value="${esc(S.set.wa)}" placeholder="6281234567890"></div></div>
+    <div style="margin-top:14px"><button class="btn" id="saveSet">Simpan pengaturan</button></div></div>
+  <div class="panel"><h2>${ed.id?'Edit produk':'Tambah produk'}</h2>
+  <form id="pf"><div class="f">
+    <div><label for="t">Judul</label><input id="t" required value="${esc(ed.title)}" placeholder="TikTok 10K followers aktif"></div>
+    <div><label for="pl">Merek</label><select id="pl">${Object.keys(P).map(k=>`<option ${ed.platform===k?'selected':''}>${k}</option>`).join('')}</select></div>
+    <div><label for="pr">Harga (Rp)</label><input id="pr" type="number" min="0" required value="${ed.price??''}"></div>
+    <div><label for="fo">Followers</label><input id="fo" type="number" min="0" value="${ed.followers??''}"></div>
+    <div><label for="ag">Usia akun</label><input id="ag" value="${esc(ed.age)}" placeholder="2 tahun"></div>
+    <div><label for="pi">Gambar (watermark otomatis)</label><input id="pi" type="file" accept="image/*">${ed.image_url?`<img class="thumb" src="${esc(ed.image_url)}" alt="Gambar saat ini">`:''}</div></div>
+  <label for="ds" style="margin-top:14px">Deskripsi</label><textarea id="ds">${esc(ed.description)}</textarea>
+  <div style="margin-top:14px;display:flex;gap:8px"><button class="btn">${ed.id?'Simpan perubahan':'Tambah produk'}</button>${ed.id?'<button type="button" class="btn ghost" id="cancel">Batal</button>':''}</div></form></div>
+  <div class="panel"><h2>Daftar produk (${S.products.length})</h2><div class="scroll"><table><thead><tr><th></th><th>Judul</th><th>Merek</th><th>Harga</th><th>Status</th><th></th></tr></thead><tbody>
+  ${S.products.map(p=>`<tr><td>${p.image_url?`<img class="td" src="${esc(p.image_url)}" alt="">`:''}</td><td>${esc(p.title)}</td><td>${esc(p.platform)}</td><td>${rp(p.price)}</td><td>${p.sold?'Terjual':'Tersedia'}</td>
+  <td style="white-space:nowrap"><button class="btn ghost sm" data-e="${p.id}">Edit</button> <button class="btn ghost sm" data-s="${p.id}">${p.sold?'Tandai tersedia':'Tandai terjual'}</button> <button class="btn red sm" data-d="${p.id}">Hapus</button></td></tr>`).join('')||'<tr><td colspan="6" class="muted">Belum ada produk.</td></tr>'}
+  </tbody></table></div></div>`;
+  $('#out').onclick=async()=>{await sb.auth.signOut();S.session=null;admin()};
+  $('#saveSet').onclick=async()=>{try{
+    toast('Menyimpan…');
+    const row={id:1,wa:$('#wa').value.trim(),qris_url:S.set.qris_url,banner_url:S.set.banner_url};
+    const q=$('#qf').files[0],b=$('#bf').files[0];
+    if(q)row.qris_url=await up(q,'qris');
+    if(b)row.banner_url=await up(b,'banner',{max:1800});
+    const {error}=await sb.from('settings').upsert(row);if(error)throw error;
+    toast('Pengaturan disimpan');await load();admin();
+  }catch(x){toast('Gagal: '+x.message)}};
+  $('#pf').onsubmit=async e=>{e.preventDefault();try{
+    toast('Menyimpan…');
+    const row={title:$('#t').value.trim(),platform:$('#pl').value,price:+$('#pr').value,followers:+$('#fo').value||0,age:$('#ag').value.trim(),description:$('#ds').value.trim()};
+    const f=$('#pi').files[0];if(f)row.image_url=await up(f,'products',{max:1200,mark:1});
+    const r=ed.id?await sb.from('products').update(row).eq('id',ed.id):await sb.from('products').insert(row);
+    if(r.error)throw r.error;S.edit=null;toast('Produk disimpan');await load();admin();
+  }catch(x){toast('Gagal: '+x.message)}};
+  if($('#cancel'))$('#cancel').onclick=()=>{S.edit=null;admin()};
+  document.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{S.edit=+b.dataset.e;admin();scrollTo({top:0})});
+  document.querySelectorAll('[data-s]').forEach(b=>b.onclick=async()=>{const p=S.products.find(x=>x.id===+b.dataset.s);
+    const {error}=await sb.from('products').update({sold:!p.sold}).eq('id',p.id);if(error)return toast(error.message);await load();admin()});
+  document.querySelectorAll('[data-d]').forEach(b=>b.onclick=async()=>{if(!confirm('Hapus produk ini?'))return;
+    const {error}=await sb.from('products').delete().eq('id',+b.dataset.d);if(error)return toast(error.message);await load();admin()});
 }
-
-function route(){ location.hash==='#admin' ? renderAdmin() : renderShop(); }
-window.addEventListener('hashchange',route);
+function route(){location.hash==='#admin'?admin():shop()}
+addEventListener('hashchange',route);
 load().then(route).catch(()=>{$('#app').innerHTML='<div class="empty">Gagal memuat data. Periksa konfigurasi Supabase di index.html.</div>'});
 </script>
 </body>
